@@ -1,77 +1,63 @@
-const timerDisplay = document.querySelector('.timer-display');
-const decrementBtn = document.querySelector('#decrement');
-const incrementBtn = document.querySelector('#increment');
-const startBtn = document.querySelector('#start');
-const pauseBtn = document.querySelector('#pause');
-const stopBtn = document.querySelector('#stop');
-const sunElement = document.querySelector('.sun');
+let workTittle = document.getElementById('work');
 
-let timeRemaining = 25 * 60; // 25 minutes in seconds
-let timerInterval;
-let isPaused = false;
+let workTime = 25;
 
-function updateTimerDisplay() {
-  const minutes = Math.floor(timeRemaining / 60);
-  const seconds = timeRemaining % 60;
-  timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+let seconds = "00";
+let intervalId; // Variable to hold the interval ID
+
+// Display
+window.onload = () => {
+    document.getElementById('minutes').innerHTML = workTime;
+    document.getElementById('seconds').innerHTML = seconds;
+
+    workTittle.classList.add('active');
 }
 
-function startTimer() {
-  timerInterval = setInterval(() => {
-    if (!isPaused) {
-      timeRemaining--;
-      updateTimerDisplay();
+// Start timer
+function start() {
+    // Change button
+    document.getElementById('start').style.display = "none";
+    document.getElementById('give-up').style.display = "block";
 
-      if (timeRemaining === 0) {
-        clearInterval(timerInterval);
-        sunElement.style.transform = 'translateX(-50%) translateY(-50%)';
-        sunElement.style.width = '200px';
-        sunElement.style.height = '200px';
-      } else {
-        const sunHeight = ((25 * 60 - timeRemaining) / (25 * 60)) * 100;
-        sunElement.style.transform = `translateX(-50%) translateY(-${sunHeight}%)`;
-      }
+    // Change the time
+    seconds = 59;
+
+    let workMinutes = workTime - 1;
+
+    // Countdown
+    let timerFunction = () => {
+        // Change the display
+        document.getElementById('minutes').innerHTML = workMinutes;
+        document.getElementById('seconds').innerHTML = seconds;
+
+        // Start
+        seconds = seconds - 1;
+
+        if (seconds === 0) {
+            workMinutes = workMinutes - 1;
+            if (workMinutes === -1) {
+                clearInterval(intervalId); // Stop the timer
+                document.getElementById('give-up').style.display = "none"; // Hide the "Give Up" button
+                document.getElementById('start').style.display = "block"; // Show the "Start" button
+                return;
+            }
+            seconds = 59;
+        }
     }
-  }, 1000);
 
-  startBtn.disabled = true;
-  pauseBtn.style.display = 'inline-block';
-  stopBtn.style.display = 'inline-block';
+    // Start countdown
+    intervalId = setInterval(timerFunction, 1000); // 1000 = 1s
 }
 
-function pauseTimer() {
-  isPaused = true;
-  pauseBtn.disabled = true;
-  startBtn.disabled = false;
+// Give up
+function giveUp() {
+    clearInterval(intervalId); // Stop the timer
+
+    // Reset timer display
+    document.getElementById('minutes').innerHTML = workTime;
+    document.getElementById('seconds').innerHTML = '00';
+
+    // Reset button
+    document.getElementById('give-up').style.display = "none";
+    document.getElementById('start').style.display = "block";
 }
-
-function stopTimer() {
-  clearInterval(timerInterval);
-  timeRemaining = 25 * 60;
-  updateTimerDisplay();
-  sunElement.style.transform = 'translateX(-50%) translateY(0%)';
-  sunElement.style.width = '100px';
-  sunElement.style.height = '100px';
-  isPaused = false;
-  startBtn.disabled = false;
-  pauseBtn.style.display = 'none';
-  pauseBtn.disabled = true;
-  stopBtn.style.display = 'none';
-  stopBtn.disabled = true;
-}
-
-decrementBtn.addEventListener('click', () => {
-  timeRemaining = Math.max(timeRemaining - 60, 0);
-  updateTimerDisplay();
-});
-
-incrementBtn.addEventListener('click', () => {
-  timeRemaining = Math.min(timeRemaining + 60, 25 * 60);
-  updateTimerDisplay();
-});
-
-startBtn.addEventListener('click', startTimer);
-pauseBtn.addEventListener('click', pauseTimer);
-stopBtn.addEventListener('click', stopTimer);
-
-updateTimerDisplay();
