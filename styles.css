@@ -1,17 +1,18 @@
 :root {
     font-size: 62.5%; /* 1rem = 10px */
 
-    --color-primary: #efefef;
+    --color-primary: #fffbfb;
     --color-secondary: hsl(358, 78%, 69%);
     --color-font: hsla(0, 13%, 12%, 0.902);
 
-    --color-shadow: #FFA361;
+    /* --color-shadow: #FFA361; */
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 html, body {
@@ -51,9 +52,16 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
-.painel {
+.outer-box{
+    border-radius: 5rem; /* Rounded corners */
+    border: 2px solid black; /* Black border */
+    padding: 2rem; /* Adjust padding as needed */
+}
+
+ /* .painel {
     display: grid;
     grid-template-columns: 1fr 1fr;
     text-align: center;
@@ -62,8 +70,8 @@ section {
     padding: 1rem;
     border-radius: 10rem;
     -webkit-box-shadow: 0px 0px 15px 10px var(--color-shadow); 
-    box-shadow: 0px 0px 15px 10px var(--color-shadow);
-}
+    box-shadow: 0px 0px 15px 10px var(--color-shadow); 
+ }
 
 .painel p {
     opacity: .8;
@@ -73,28 +81,38 @@ section {
 .painel p.active {
     opacity: 1;
     color: var(--color-secondary);
-}
+} */
 
+.timer-and-sun {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Position relative to allow absolute positioning of sun_box */
+  padding: 50px 25px;
+  border-radius: 5rem;
+  
+}
 .timer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 30rem;
     height: 30rem;
-    border-radius: 50%;
+    border-radius: 6%;
     -webkit-box-shadow: 0px 0px 15px 10px var(--color-shadow); 
     box-shadow: 0px 0px 15px 10px var(--color-shadow);
 }
 
 .circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 26rem;
-    height: 26rem;
-    border-radius: 50%;
-    background-color: var(--color-secondary);
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 5rem; /* Rounded corners */
+  background-color: transparent; /* No background color */
+  position: relative;
+  border: 2px solid black; /* Black border */
 }
 
 .circle::before {
@@ -140,7 +158,7 @@ section {
     position: relative;
     width: 200px;
     height: 200px;
-    background-color: #ebd4d4; /* White circular box */
+    background-color: #f8667a; /* White circular box */
     border-radius: 50%;
     overflow: hidden;
 }
@@ -233,3 +251,38 @@ section {
       bottom: 0%; /* Move the sun to the top */
     }
   } 
+  #start{
+    background-color:#f8667a;
+    border: none;
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 14px 2px;
+    cursor: pointer;
+    border-radius: 18px;
+   
+    
+}
+.controls #give-up{
+  display: none;
+}
+#give-up {
+  
+  background-color:#f8667a;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 20px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 14px 2px;
+  cursor: pointer;
+  border-radius: 18px;
+}
+
